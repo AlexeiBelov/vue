@@ -34,7 +34,8 @@
         },
         computed: {
             name: function () {
-                if (!!this.$route.matched) {
+                console.log(this.$route);
+                if (this.$route.matched.length > 0) {
                     //возвращает имя родительского роута если есть вложенность
                     return this.$route.matched[0].name;
                 } else {

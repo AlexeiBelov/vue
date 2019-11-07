@@ -24,13 +24,14 @@
                         </div>
                     </el-menu-item>
                     <el-menu-item index="2-2"
-                                  class="menu-item">
+                                  class="menu-item"
+                                  @click="finishedTasks">
                         <div class="menu-item-properties">
-                            <span class="menu-item-text">Завершенные задачи</span>
-                            <span class="menu-item-number">0</span>
+                            <span class="menu-item-text">Бесконечный скролл</span>
+                            <span class="menu-item-number">. . .</span>
                         </div>
                     </el-menu-item>
-                    <el-menu-item index="2-3"
+                    <!--<el-menu-item index="2-3"
                                   class="menu-item">
                         <div class="menu-item-properties">
                             <span class="menu-item-text">Активные задачи подчиненных</span>
@@ -42,7 +43,7 @@
                         <div class="menu-item-properties">
                             <span class="menu-item-text">Завершенные задачи подчиненных</span>
                             <span class="menu-item-number">0</span>
-                        </div></el-menu-item>
+                        </div></el-menu-item>-->
                 </el-menu-item-group>
             </el-submenu>
             <el-menu-item index="3">
@@ -93,6 +94,9 @@
             collapse() {
                 //закрытие левого sidebar
                 this.$store.dispatch('PlanningPage/SET_IS_COLLAPSE', !this.isCollapse);
+            },
+            finishedTasks() {
+                this.$router.push('/planning/tableFinishedTasks');
             }
         }
     }

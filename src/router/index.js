@@ -2,15 +2,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import PredictionPage from '../views/prediction/components/PredictionPage.vue'
-import HomePage from '../views/homePage/components/HomePage.vue'
-import PlanningPage from '../views/planning/components/PlanningPage.vue'
-import PlanningActualTasks from '../views/planning/components/actualTasks/PlanningActualTasks.vue'
-import ReportsPage from '../views/reports/components/ReportsPage.vue'
-import ServicePage from '../views/service/components/ServicePage.vue'
 
-Vue.use(Router)
-Vue.use(VueAxios, axios)
+// ленивая загрузка маршрутов
+const PredictionPage  = () => Promise.resolve(import('../views/prediction/components/PredictionPage.vue'));
+const HomePage = () => Promise.resolve(import('../views/homePage/components/HomePage.vue'));
+const PlanningPage  = () => Promise.resolve(import('../views/planning/components/PlanningPage.vue'));
+const PlanningActualTasks  = () => Promise.resolve(import('../views/planning/components/actualTasks/PlanningActualTasks.vue'));
+const TableFinishedTasks  = () => Promise.resolve(import('../views/planning/components/finishedTasks/TableFinishedTasks.vue'));
+const ReportsPage  = () => Promise.resolve(import('../views/reports/components/ReportsPage.vue'));
+const ServicePage  = () => Promise.resolve(import('../views/service/components/ServicePage.vue'));
+
+Vue.use(Router);
+Vue.use(VueAxios, axios);
 
 const router = new Router({
     mode: 'history',
@@ -23,7 +26,7 @@ const router = new Router({
         },
         {
             path: '/',
-            redirect:  '/planning/planningActualTasks', /*при загрузке переходим в Планирование - Активные задачи*/
+            redirect:  '/planning/planningActualTasks', // при загрузке переходим в Планирование - Активные задачи
             name: 'Home',
             component: HomePage
         },
@@ -34,7 +37,10 @@ const router = new Router({
             children: [
                 {   path: '/planning/planningActualTasks',
                     name: 'Активные задачи',
-                    component: PlanningActualTasks }, ]
+                    component: PlanningActualTasks },
+                {   path: '/planning/tableFinishedTasks',
+                    name: 'Завершенные задачи',
+                    component: TableFinishedTasks },]
         },
         {
             path: '/reports',

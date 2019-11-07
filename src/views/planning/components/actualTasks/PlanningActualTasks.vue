@@ -6,7 +6,6 @@
                 <i class="el-icon-refresh icon-refresh"></i>
                 <span class="time">Данные обновлены {{ countTime }}</span>
             </div>
-
         </div>
         <TableActualTasks v-loading="loading"/>
     </div>
@@ -15,14 +14,16 @@
 <script>
     import  planningApi  from '../../api/planningApi'
     import  TableActualTasks  from './TableActualTasks'
+
     export default {
         name: "PlanningActualTasks",
         components: {
-            TableActualTasks
+            TableActualTasks,
         },
         data() {
             return {
                 loading: false,
+                showTable: true,
             }
         },
         computed: {

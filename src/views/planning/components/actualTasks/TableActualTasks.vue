@@ -23,6 +23,11 @@
             <el-table-column
                     label="thumbnailUrl"
                     prop="thumbnailUrl">
+                <template slot-scope="scope">
+                    <el-image
+                            style="width: 24px; height: 24px"
+                            :src="scope.row.thumbnailUrl"></el-image>
+                </template>
             </el-table-column>
             <el-table-column
                     label="title"
@@ -37,6 +42,11 @@
             <el-table-column
                     label="url"
                     prop="url">
+                <template slot-scope="scope">
+                    <el-image
+                            style="width: 24px; height: 24px"
+                            :src="scope.row.url"></el-image>
+                </template>
             </el-table-column>
             <el-table-column
                     align="right">

@@ -3,7 +3,7 @@
         <div class="header">
             <div class="header-menu header-menu-left">
                 <svg role="img"
-                     height="48"
+                     height="32"
                      viewBox="0 0 1024 1024"
                      style="margin:0 0 0 8px; cursor: pointer;" @click="showSnowflakes">
                     <path fill="#fff"

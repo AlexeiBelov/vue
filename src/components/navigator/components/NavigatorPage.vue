@@ -30,6 +30,7 @@
         },
         watch: {
             result: function (e) {
+                console.log('Результат вычислений ', e);
                 this.result = e;
             },
             resultRequest: function (e) {
@@ -39,7 +40,7 @@
         },
         created() {
             runWorker(str, this, 'result');
-            runWorker(strRequest, this, 'resultRequest', ['https://jsonplaceholder.typicode.com/photos']);
+            runWorker(strRequest, this, 'resultRequest', ['https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos',]);
         },
         methods: {
             snowflakes() {

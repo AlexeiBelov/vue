@@ -2,8 +2,10 @@
     <div id="app">
         <transition name="fade"
                     mode="out-in">
-            <NavigatorPage v-if="show"/>
-            <AuthPage v-else/>
+            <div>
+                <NavigatorPage v-if="show"/>
+                <AuthPage v-else/>
+            </div>
         </transition>
     </div>
 </template>
