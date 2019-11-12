@@ -1,12 +1,15 @@
 <template>
     <div id="app">
+        <!--<transition name="fade"
+                    mode="out-in">-->
+            <NavigatorPage v-if="show"
+                           key="0"/>
+        <!--</transition>
         <transition name="fade"
-                    mode="out-in">
-            <div>
-                <NavigatorPage v-if="show"/>
-                <AuthPage v-else/>
-            </div>
-        </transition>
+                    mode="out-in">-->
+            <AuthPage v-if="!show"
+                      key=""/>
+        <!--</transition>-->
     </div>
 </template>
 

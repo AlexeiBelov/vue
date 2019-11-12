@@ -32,6 +32,10 @@
             result: function (e) {
                 console.log('Результат вычислений ', e);
                 this.result = e;
+                this.$message({
+                    message: `Вычисления закончены. Полученный результат = ${e}`,
+                    type: 'success'
+                });
             },
             resultRequest: function (e) {
                 console.log('resultRequest', e);
@@ -39,8 +43,9 @@
             }
         },
         created() {
+            // старт workers
             runWorker(str, this, 'result');
-            runWorker(strRequest, this, 'resultRequest', ['https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos',]);
+            // runWorker(strRequest, this, 'resultRequest', ['https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos','https://jsonplaceholder.typicode.com/photos',]);
         },
         methods: {
             snowflakes() {

@@ -1,93 +1,138 @@
 <template>
     <div>
         <h3>{{ title }}</h3>
-        <div v-loading="loading"
-             style="height: calc(100vh - 100px); overflow-y: auto;"><!-- рассчет высоты таблицы -->
-            <el-table
-                    :data="tableData"
-                    :height="heightTable"
-                    border
-                    size="mini"
-                    :header-cell-style=setStylesHeaderTable
-                    :cell-style=setStylesCellTable
-                    highlight-current-row
-                    style="width: 100%; margin-bottom: 8px;">
-                <el-table-column
-                        prop="materialId"> <!-- название name в input совпадает с prop колонки-->
-                    <template slot="header" slot-scope="scope">
-                        <div>materialId</div>
-                        <el-popover
-                                width="200"
-                                trigger="hover"
-                                placement="right">
-                            <input
-                                    v-model="searchLeft"
-                                    class="input-search"
-                                    autocomplete="off"
-                                    name="materialId"
-                                    @input="searchTableData"
-                                    @clear="clearTableData"
-                                    placeholder="Поиск по ..."/> <!-- название name в input совпадает с prop колонки-->
-                            <div slot="reference" class="name-wrapper">
-                                <img class="image-filter" slot="reference" src="../../../assets/images/filter_empty.png">
-                            </div>
-                        </el-popover>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        prop="mnemo">
-                    <template slot="header" slot-scope="scope">
-                        <div>mnemo</div>
-                        <el-popover
-                                width="200"
-                                trigger="click"
-                                placement="right">
-                            <input
-                                    v-model="searchRight"
-                                    class="input-search"
-                                    autocomplete="off"
-                                    name="mnemo"
-                                    @input="searchTableData"
-                                    @clear="clearTableData"
-                                    placeholder="Поиск по ..."/>
-                            <div slot="reference" class="name-wrapper">
-                                <img class="image-filter" slot="reference" src="../../../assets/images/filter_empty.png">
-                            </div>
-                        </el-popover>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <el-row type="flex" justify="center" align="middle">
-                <span class="title-pagination">Отображаемое количество строк не более </span>
-                <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page.sync="currentPage"
-                        :page-sizes="[26, 30, 35, 40, 45, 50, 55, 100, 150, 200, 300, 400, 500]"
-                        :page-size="sizePage"
-                        layout="sizes, prev, pager, next"
-                        :total="totalPage">
-                </el-pagination>
-            </el-row>
-        </div>
+        <transition name="fade"
+                    mode="out-in">
+            <div v-loading="loading"
+                 style="height: calc(100vh - 100px); overflow-y: auto;"
+                 v-if="tableKub"><!-- рассчет высоты таблицы -->
+                <el-table
+                        :data="tableData"
+                        :height="heightTable"
+                        border
+                        size="mini"
+                        :header-cell-style=setStylesHeaderTable
+                        :cell-style=setStylesCellTable
+                        highlight-current-row
+                        style="width: 100%; margin-bottom: 8px;">
+                    <el-table-column
+                            prop="materialId"> <!-- название name в input совпадает с prop колонки-->
+                        <template slot="header" slot-scope="scope">
+                            <div>materialId</div>
+                            <el-popover
+                                    width="200"
+                                    trigger="hover"
+                                    placement="right">
+                                <input
+                                        v-model="searchLeft"
+                                        class="input-search"
+                                        autocomplete="off"
+                                        name="materialId"
+                                        @input="searchTableData"
+                                        @clear="clearTableData"
+                                        placeholder="Поиск по ..."/> <!-- название name в input совпадает с prop колонки-->
+                                <div slot="reference" class="name-wrapper">
+                                    <img class="image-filter" slot="reference" src="../../../assets/images/filter_empty.png">
+                                </div>
+                            </el-popover>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            prop="mnemo">
+                        <template slot="header" slot-scope="scope">
+                            <div>mnemo</div>
+                            <el-popover
+                                    width="200"
+                                    trigger="click"
+                                    placement="right">
+                                <input
+                                        v-model="searchRight"
+                                        class="input-search"
+                                        autocomplete="off"
+                                        name="mnemo"
+                                        @input="searchTableData"
+                                        @clear="clearTableData"
+                                        placeholder="Поиск по ..."/>
+                                <div slot="reference" class="name-wrapper">
+                                    <img class="image-filter" slot="reference" src="../../../assets/images/filter_empty.png">
+                                </div>
+                            </el-popover>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <el-row type="flex" justify="center" align="middle">
+                    <span class="title-pagination">Отображаемое количество строк не более </span>
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page.sync="currentPage"
+                            :page-sizes="[26, 30, 35, 40, 45, 50, 55, 100, 150, 200, 300, 400, 500]"
+                            :page-size="sizePage"
+                            layout="sizes, prev, pager, next"
+                            :total="totalPage">
+                    </el-pagination>
+                </el-row>
+            </div>
+        </transition>
+        <transition name="fade"
+                    mode="out-in">
+            <div v-if="!tableKub"
+                 v-loading="loading"
+                 class="table-block">
+                <div class="row table-header">
+                    <div style="width: 5%;">Name</div>
+                    <div style="width: 5%;">Id</div>
+                    <div style="width: 20%;">Url</div>
+                    <div style="width: 45%;">Title</div>
+                    <div style="width: 20%;">Web</div>
+                </div>
+                <div style="height: calc(100vh - 240px); overflow: auto;"
+                     v-infinite-scroll="load">
+                    <div v-for="item in tableData"
+                         class="row table-row"
+                         :key="item.id">
+                        <div style="width: 5%;">{{item.id}}</div>
+                        <div style="width: 5%;">{{item.albumId}}</div>
+                        <div style="width: 20%;">{{item.thumbnailUrl}}</div>
+                        <div style="width: 45%;">{{item.title}}</div>
+                        <div style="width: 20%;">{{item.url}}</div>
+                    </div>
+                </div>
+                <div class="row table-row" style="border: 1px solid #ebebeb; height: 24px; line-height: 24px; font-size: 12px;">
+                    <div style="margin: 0 8px 0 16px;">Отображено строк</div>
+                    <div style="color: #67C23A;">{{table.length}} </div>
+                    <div style="margin: 0 8px 0 16px;">из</div>
+                    <div style="color: #F56C6C;">{{dataTable.length}}</div>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
-    import homeApi from "../api/homeApi"
+    import homeApi from "../api/homeApi";
     import { handlers } from "../../../utils/handlers";
+    import { strRequest } from '../../../utils/workers/workerRequests';
+    import { runWorker } from '../../../utils/workers/worker';
 
     export default {
         name: 'PredictionPage',
         data(){
             return {
+                dataTable: [], // массив для хранения всех данных таблицы
+                count: 0,
                 currentPage: 1, // текущая страница
                 loading: false, // индикатор загрузки
                 response: [], // ответ сервера response.data.sapMaterial
+                resultRequest: null, // поле для worker
+                startIndex: 0, // начальный index отображаемого массива
+                endIndex: 50, // последний index отображаемого массива
                 searchLeft: '', // поиск слева
                 searchRight: '', // поиск справа
                 sizePage: 26, // количество отображаемых строк в таблице
                 table: [], // изначально для таблицы пустой массив
+                tableHeaders: ['name', 'id', 'url', 'web'], // заголовки таблицы
+                tableKub: false, // отображение таблицы Kubernetes
                 tableSearch: [], // массив для поиска
                 title: 'Прогнозирование',
             }
@@ -118,6 +163,14 @@
                 return {'text-align': 'center'};
             },
         },
+        watch: {
+            resultRequest: function (e) {
+                this.loading = false;
+                //console.log('resultRequest', e); // здесь результат runWorker
+                this.dataTable = e.flat(1); // преобразует многомерный массив в одномерный на заданную максимальную глубину
+                this.table = this.dataTable.slice(this.startIndex, this.endIndex);
+            }
+        },
         created() {
             this.getData(); // запрос данных при создании компонента
         },
@@ -126,14 +179,18 @@
                 try {
                     this.loading = true;
                     const response = await homeApi.get(); // здесь запрос данных с бэка
+                    this.tableKub = true;
                     this.response = response.data.sapMaterial;
                     this.table = response.data.sapMaterial.slice(0, this.sizePage);
                     this.loading = false;
                 }
                 catch (e) {
+                    this.loading = true;
+                    this.tableKub = false;
                     handlers.defaultErrorAPIHandler(e, 'Ошибка сервера');
                     this.loading = false;
                     console.log(e);
+                    runWorker(strRequest, this, 'resultRequest', ['https://jsonplaceholder.typicode.com/photos']);
                 }
 
             },
@@ -161,6 +218,12 @@
                 this.sizePage = val;
                 let array = this.tableSearch.length > 0 ? this.tableSearch : this.response;
                 this.watchPartTable(array);
+            },
+            load () {
+                if(this.endIndex <= this.dataTable.length) {
+                    this.endIndex = this.endIndex + 10;
+                    this.table = this.dataTable.slice(0, this.endIndex);
+                }
             },
             searchTableData(e) {
                 if(e.target.value) {
@@ -206,6 +269,40 @@
         left: -11px;
         width: 12px;
         cursor: pointer;
+    }
+    .row {
+         display: flex;
+        flex-direction: row;
+    }
+    .table-block {
+        margin: 0 16px;
+        border: 1px solid #ebebeb;
+        border-radius: 3px;
+        transition: .2s;
+    }
+    .table-block:hover {
+        box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
+    }
+    .table-header {
+        border-bottom: 1px solid #ebebeb;
+        height: 40px;
+        line-height: 40px;
+        color: #909399;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .table-row {
+        border-bottom: 1px solid #ebebeb;
+        height: 32px;
+        line-height: 32px;
+    }
+    .table-row:hover {
+        transition: .3s;
+        background-color: #f5f7fa;
+        cursor: pointer;
+    }
+    .table-row:not(:hover) {
+        transition: .3s;
     }
     .title-pagination {
         color: #909399;

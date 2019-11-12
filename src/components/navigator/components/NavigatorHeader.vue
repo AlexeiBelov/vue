@@ -85,7 +85,7 @@
         flex-grow: 1;
         align-items: center;
         justify-content: space-between;
-        height: 56px;
+        height: 48px;
         background-color: transparent;
     }
     .header-menu {

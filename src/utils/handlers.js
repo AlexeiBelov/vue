@@ -12,7 +12,6 @@ export const handlers = {
         });
     },
     defaultErrorAPIHandler: (errorText, status) => {
-        console.log(errorText);
         Notification.error({
             title: status,
             message: errorText,

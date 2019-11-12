@@ -23,11 +23,11 @@
             <el-table-column
                     label="thumbnailUrl"
                     prop="thumbnailUrl">
-                <template slot-scope="scope">
+                <!--<template slot-scope="scope">
                     <el-image
                             style="width: 24px; height: 24px"
                             :src="scope.row.thumbnailUrl"></el-image>
-                </template>
+                </template>-->
             </el-table-column>
             <el-table-column
                     label="title"
@@ -42,11 +42,11 @@
             <el-table-column
                     label="url"
                     prop="url">
-                <template slot-scope="scope">
+                <!--<template slot-scope="scope">
                     <el-image
                             style="width: 24px; height: 24px"
                             :src="scope.row.url"></el-image>
-                </template>
+                </template>-->
             </el-table-column>
             <el-table-column
                     align="right">
@@ -116,7 +116,7 @@
             },
             setStylesHeaderTable: function () {
                 return {
-                    'background-color': '#67C23A',
+                    'background-color': '#909399',
                     'color': '#fff',/*'color': '#606266',*/
                     'text-align': 'center',
                     'font-size': '18px',
