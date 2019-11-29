@@ -140,25 +140,25 @@
     /*стили для placeholder*/
     ::-webkit-input-placeholder {
         text-align: right;
-        color: rgb(255, 208, 75);;
+        color: #fff;
         font-size: 28px;
         font-weight: bold;
     }
     :-moz-placeholder { /* Firefox 18- */
         text-align: right;
-        color: rgb(255, 208, 75);;
+        color: #fff;
         font-size: 28px;
         font-weight: bold;
     }
     ::-moz-placeholder {  /* Firefox 19+ */
         text-align: right;
-        color: rgb(255, 208, 75);;
+        color: #fff;
         font-size: 28px;
         font-weight: bold;
     }
     :-ms-input-placeholder {
         text-align: right;
-        color: rgb(255, 208, 75);;
+        color: #fff;
         font-size: 28px;
         font-weight: bold;
     }

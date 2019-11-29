@@ -1,7 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        title: 'Отчёты',
+        title: 'Дашборды и графики',
     },
     mutations: {
         setTitleReports (state, payload) {
