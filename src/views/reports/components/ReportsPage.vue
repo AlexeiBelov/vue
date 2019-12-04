@@ -63,7 +63,7 @@
                 </div>
             </div>
             <!-- Правая колонка -->
-            <div class="column">
+            <div class="column" style="justify-content: center;">
                 <div class="content-chart-properties-pie">
                     <div class="content-chart-header">
                         <div>Случайные данные</div>

@@ -11,6 +11,7 @@ const PlanningActualTasks  = () => Promise.resolve(import('../views/planning/com
 const TableFinishedTasks  = () => Promise.resolve(import('../views/planning/components/finishedTasks/TableFinishedTasks.vue'));
 const ReportsPage  = () => Promise.resolve(import('../views/reports/components/ReportsPage.vue'));
 const ServicePage  = () => Promise.resolve(import('../views/service/components/ServicePage.vue'));
+const FormCreditCard  = () => Promise.resolve(import('../views/formCreditCard/components/FormCreditCard.vue'));
 
 Vue.use(Router);
 Vue.use(VueAxios, axios);
@@ -51,6 +52,11 @@ const router = new Router({
             path: '/service',
             name: 'Сервис',
             component: ServicePage
+        },
+        {
+            path: '/card',
+            name: 'Оплата картой',
+            component: FormCreditCard
         }
     ]
 })

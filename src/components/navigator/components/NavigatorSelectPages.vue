@@ -17,6 +17,7 @@
                 <button @click="openPlanning">Планирование</button>
                 <button @click="openReports">Отчёты</button>
                 <button @click="openHomePage">Новогодняя</button>
+                <button @click="openPayCard">Оплата картой</button>
             </div>
         </div>
     </div>
@@ -65,6 +66,9 @@
             openHomePage() {
                 this.$router.push('/');
             },
+            openPayCard() {
+                this.$router.push('/card');
+            },
             //возвращает логический тип
             getElementOpenList() {
                 return !this.$el.querySelector('.dropdown-content-open');
@@ -76,7 +80,7 @@
 <style scoped>
     .arrow {
         margin-top: 8px;
-        color: #909399;
+        color: #fff;
         transition: .3s;
         transform: rotate(0deg);
         transform-origin: 8px;
@@ -101,7 +105,7 @@
         flex-direction: column;
         position: absolute;
         box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-        z-index: 1;
+        z-index: 10;
         max-height:0;
         overflow:hidden;
         margin: 16px 0 0 162px;

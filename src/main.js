@@ -5,8 +5,11 @@ import store from './store/index.js';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import './plugins/element';
+import VueTheMask from 'vue-the-mask'
+
 
 Vue.use(VueAxios, axios);
+Vue.use(VueTheMask);
 
 Vue.config.productionTip = false;
 
