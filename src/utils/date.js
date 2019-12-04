@@ -13,7 +13,7 @@ export const DATE = {
     daysLeftNewYear: () => {
         let date = new Date();
         //Можно установить любую дату
-        let nextDate = new Date( 'December 31, 2019 ');
+        let nextDate = new Date( 'January 1, 2020 ');
         //Количество миллисекунд в одном дне
         let msDay = 24 * 60 * 60 * 1000;
         //Высчитываем количество дней
