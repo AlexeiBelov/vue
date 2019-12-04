@@ -288,6 +288,7 @@
         flex-direction: column;
     }
     .content-chart-body {
+        overflow-y: auto;
         margin: 16px 8px 8px 8px;
     }
     .content-chart-header {

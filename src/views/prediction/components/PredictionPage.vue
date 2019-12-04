@@ -75,7 +75,7 @@
             </div>
         </transition>
         <div v-if="!tableKub">
-            нет данных
+            <PageNotFound/>
         </div>
     </div>
 </template>
@@ -83,9 +83,11 @@
 <script>
     import homeApi from '../api/homeApi';
     import { handlers } from '../../../utils/handlers';
+    import PageNotFound from "../../../components/pageNotFound/components/PageNotFound";
 
     export default {
         name: 'PredictionPage',
+        components: { PageNotFound },
         data(){
             return {
                 currentPage: 1, // текущая страница

@@ -2,7 +2,7 @@
     <div class="column wrap"
          :class="{ 'snow': pulse }">
         <NavigatorHeader v-on:snowflakes="snowflakes" :result="result"/>
-        <div class=" content"
+        <div :style="{ 'background-color':  backgroundColor }" class="content"
              @click="closeMenu">
             <transition name="fade"
                         mode="out-in">
@@ -26,6 +26,12 @@
                 pulse: true,
                 result: 0,
                 resultRequest: null,
+            }
+        },
+        computed: {
+            backgroundColor: function() {
+                console.log(this.$route);
+                return this.$route.path === '/' ? 'transparent' : '#fff';
             }
         },
         watch: {
@@ -68,7 +74,7 @@
     }
     .content {
         height: 100%;
-        background-color: #fff;
+        /*background-color: #fff;*/
     }
     .wrap {
         background-color: rgb(84, 92, 100);

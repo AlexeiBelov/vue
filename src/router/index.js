@@ -26,8 +26,8 @@ const router = new Router({
         },
         {
             path: '/',
-            redirect:  '/planning/planningActualTasks', // при загрузке переходим в Планирование - Активные задачи
-            name: 'Home',
+            /*redirect:  '/planning/planningActualTasks', // при загрузке переходим в Планирование - Активные задачи*/
+            name: 'Новогодняя',
             component: HomePage
         },
         {

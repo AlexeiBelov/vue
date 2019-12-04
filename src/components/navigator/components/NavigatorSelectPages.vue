@@ -16,6 +16,7 @@
                 <button @click="openPrediction">Прогнозирование</button>
                 <button @click="openPlanning">Планирование</button>
                 <button @click="openReports">Отчёты</button>
+                <button @click="openHomePage">Новогодняя</button>
             </div>
         </div>
     </div>
@@ -34,7 +35,7 @@
         },
         computed: {
             name: function () {
-                // console.log(this.$route);
+                console.log(this.$route);
                 if (this.$route.matched.length > 0) {
                     //возвращает имя родительского роута если есть вложенность
                     return this.$route.matched[0].name;
@@ -60,6 +61,9 @@
             },
             openReports() {
                 this.$router.push('/reports');
+            },
+            openHomePage() {
+                this.$router.push('/');
             },
             //возвращает логический тип
             getElementOpenList() {

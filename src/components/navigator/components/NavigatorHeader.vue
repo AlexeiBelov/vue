@@ -55,8 +55,8 @@
 </template>
 
 <script>
-    import CurrentTime from '../../CurrentTime.vue'
-    import RadioPlayer from '../../RadioPlayer.vue'
+    import CurrentTime from '../../othersComponents/CurrentTime.vue'
+    import RadioPlayer from '../../othersComponents/RadioPlayer.vue'
     import NavigatorSelectPages from './NavigatorSelectPages.vue'
 
     export default {
