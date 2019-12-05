@@ -40,11 +40,12 @@
     }
 
     .marquee span {
-        font-size: 14px;
         display: inline-block;
         padding-left: 100%;
         -webkit-animation: marquee 10s infinite linear;
         animation: marquee 10s infinite linear;
+        font-family: 'Dancing Script', cursive;
+        font-style: italic;
     }
 
     @-webkit-keyframes marquee {

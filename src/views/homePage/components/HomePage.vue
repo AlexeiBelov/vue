@@ -2,7 +2,7 @@
     <div>
         <GarlandNewYear/>
         <div class="text-wrap">
-            <RunString :color="'#E6A23C'" :text="title" :width="'456px'" :text-size="'24px'"/>
+            <RunString :color="'#E6A23C'" :text="title" :width="'640px'" :text-size="'40px'"/>
         </div>
     </div>
 </template>
@@ -16,7 +16,7 @@
       components: { GarlandNewYear, RunString },
       computed: {
           title: function() {
-              return DATE.daysLeftNewYear();
+              return DATE.daysLeftNewYear('01/01/2020');
           }
       }
   }

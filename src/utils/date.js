@@ -10,37 +10,18 @@ export const DATE = {
         let date = new Date();
         return date.toLocaleTimeString();
     },
-    daysLeftNewYear: () => {
-        let date = new Date();
-        //Можно установить любую дату
-        let nextDate = new Date( 'January 1, 2020 ');
-        //Количество миллисекунд в одном дне
-        let msDay = 24 * 60 * 60 * 1000;
-        //Высчитываем количество дней
-        let daysLeft = Math.round((nextDate.getTime() - date.getTime()) / msDay);
-        let dayName =  '';
-        let ds =  '' + daysLeft;
-        //Вырезаем последнюю цифру
-        let dd = parseInt(ds.substr(ds.length-1));
-        //Склоняем слово ДЕНЬ
-        if (daysLeft > 4 && daysLeft < 21) {
-            dayName= ' дней ';
-        } else if (dd === 1) {
-            dayName= ' день ';
-        } else if (dd === 2||dd === 3||dd === 4) {
-            dayName= ' дня ';
+    daysLeftNewYear: (value) => {
+        let targetDate = new Date(value).getTime();
+        let curDate = new Date().getTime();
+        let result = Math.round((curDate - targetDate) / 86400000);
+        if (result === 1 || result === 21 || result === 31) {
+            return  `До нового года остался  ${Math.abs(result)} день!`;
+        } else if (result > 1 && result < 5 || result > 21 && result < 26) {
+            return  `До нового года осталось  ${Math.abs(result)} дня!`;
+        } else if (result === 0) {
+            return  `С Новым годом!`;
         } else {
-            dayName= ' дней ';
-        }
-
-        if (daysLeft < 0) {
-            return  'С новым годом!!! '
-        } else {
-            if (daysLeft === 0) {
-                return  'Завтра новый год! '
-            } else {
-                return  'До нового года осталось  '+ daysLeft + dayName +  ' '
-            }
+            return `До нового года осталось  ${Math.abs(result)} дней!`;
         }
     }
 }
