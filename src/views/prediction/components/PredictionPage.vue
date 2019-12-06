@@ -4,17 +4,24 @@
                     mode="out-in">
             <div v-loading="loading"
                  v-if="placeShow">
-                <div class="cloud">
-                    <div class="cloud-content text-property">
-                        Погода в Москве
+                <div class="column" style="height: 30vh; padding-top: 40px;">
+                    <div class="row" style="justify-content: space-around;">
+                        <div class="text-property" style="font-size: 50px;">Прогноз погоды</div>
+                        <div class="column" style="padding-top: 16px;">
+                            <div class="text-property">Москва</div>
+                            <div style="color: #fff; font-size: 16px;">{{ runDate }}</div>
+                        </div>
+
                     </div>
+                </div>
+                <div class="text-property">Температура {{ temperature }} С</div>
+                <div class="text-property">Скорость ветра {{ wind }} м/с</div>
+                <div class="cloud">
                     <div class="text-property">Сегодня {{ dataNow }}</div>
                     <img src="../../../assets/images/cloud-01.png" alt="" class="cloud1">
                     <!--<img src="../../../assets/images/cloud-02.png" alt="" class="cloud2">-->
                     <img src="../../../assets/images/cloud-03.png" alt="" class="cloud3">
                     <!--<img src="../../../assets/images/cloud-04.png" alt="" class="cloud4">-->
-                    <div class="text-property">Температура {{ temperature }} С</div>
-                    <div class="text-property">Скорость ветра {{ wind }} м/с</div>
                 </div>
             </div>
         </transition>
@@ -45,7 +52,10 @@
         computed: {
             dataNow() {
                 return DATE.countDateRU();
-            }
+            },
+            runDate() {
+                return DATE.runDate();
+            },
         },
         created() {
             this.getData(); // запрос данных при создании компонента
@@ -74,10 +84,16 @@
 </script>
 
 <style scoped>
+    .column {
+        display: flex;
+        flex-direction: column;
+    }
     .text-property {
         color: #fff;
         font-size: 23px;
-        font-style: italic;
+    }
+    .row {
+        display: flex;
     }
     .weather-background {
         height: 100%;
@@ -91,13 +107,6 @@
         padding-bottom: 56.25%;
         height: 0;
         background-size: cover;
-    }
-    .cloud-content {
-        position: relative;
-        padding:30px;
-        color: #fff;
-        font-size:22px;
-        font-weight:bold;
     }
     .cloud img {
         width: 100%;
