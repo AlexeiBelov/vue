@@ -23,14 +23,13 @@
         components: { NavigatorHeader },
         data() {
             return {
-                pulse: true,
+                pulse: false,
                 result: 0,
                 resultRequest: null,
             }
         },
         computed: {
             backgroundColor: function() {
-                console.log(this.$route);
                 return this.$route.path === '/' ? 'transparent' : '#fff';
             }
         },

@@ -1,80 +1,24 @@
 <template>
-    <div>
-        <h3>{{ title }}</h3>
+    <div class="weather-background">
         <transition name="fade"
                     mode="out-in">
             <div v-loading="loading"
-                 style="height: calc(100vh - 100px); overflow-y: auto;"
-                 v-if="tableKub"><!-- рассчет высоты таблицы -->
-                <el-table
-                        :data="tableData"
-                        :height="heightTable"
-                        border
-                        size="mini"
-                        :header-cell-style=setStylesHeaderTable
-                        :cell-style=setStylesCellTable
-                        highlight-current-row
-                        style="width: 100%; margin-bottom: 8px;">
-                    <el-table-column
-                            prop="materialId"> <!-- название name в input совпадает с prop колонки-->
-                        <template slot="header">
-                            <div>materialId</div>
-                            <el-popover
-                                    width="200"
-                                    trigger="hover"
-                                    placement="right">
-                                <input
-                                        v-model="searchLeft"
-                                        class="input-search"
-                                        autocomplete="off"
-                                        name="materialId"
-                                        @input="searchTableData"
-                                        @clear="clearTableData"
-                                        placeholder="Поиск по ..."/> <!-- название name в input совпадает с prop колонки-->
-                                <div slot="reference" class="name-wrapper">
-                                    <img class="image-filter" slot="reference" src="../../../assets/images/filter_empty.png">
-                                </div>
-                            </el-popover>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                            prop="mnemo">
-                        <template slot="header">
-                            <div>mnemo</div>
-                            <el-popover
-                                    width="200"
-                                    trigger="click"
-                                    placement="right">
-                                <input
-                                        v-model="searchRight"
-                                        class="input-search"
-                                        autocomplete="off"
-                                        name="mnemo"
-                                        @input="searchTableData"
-                                        @clear="clearTableData"
-                                        placeholder="Поиск по ..."/>
-                                <div slot="reference" class="name-wrapper">
-                                    <img class="image-filter" slot="reference" src="../../../assets/images/filter_empty.png">
-                                </div>
-                            </el-popover>
-                        </template>
-                    </el-table-column>
-                </el-table>
-                <el-row type="flex" justify="center" align="middle">
-                    <span class="title-pagination">Отображаемое количество строк не более </span>
-                    <el-pagination
-                            @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
-                            :current-page.sync="currentPage"
-                            :page-sizes="[26, 30, 35, 40, 45, 50, 55, 100, 150, 200, 300, 400, 500]"
-                            :page-size="sizePage"
-                            layout="sizes, prev, pager, next"
-                            :total="totalPage">
-                    </el-pagination>
-                </el-row>
+                 v-if="placeShow">
+                <div class="cloud">
+                    <div class="cloud-content text-property">
+                        Погода в Москве
+                    </div>
+                    <div class="text-property">Сегодня {{ dataNow }}</div>
+                    <img src="../../../assets/images/cloud-01.png" alt="" class="cloud1">
+                    <!--<img src="../../../assets/images/cloud-02.png" alt="" class="cloud2">-->
+                    <img src="../../../assets/images/cloud-03.png" alt="" class="cloud3">
+                    <!--<img src="../../../assets/images/cloud-04.png" alt="" class="cloud4">-->
+                    <div class="text-property">Температура {{ temperature }} С</div>
+                    <div class="text-property">Скорость ветра {{ wind }} м/с</div>
+                </div>
             </div>
         </transition>
-        <div v-if="!tableKub">
+        <div v-if="!placeShow">
             <PageNotFound/>
         </div>
     </div>
@@ -84,49 +28,24 @@
     import homeApi from '../api/homeApi';
     import { handlers } from '../../../utils/handlers';
     import PageNotFound from "../../../components/pageNotFound/components/PageNotFound";
+    import { DATE } from '../../../utils/date'
 
     export default {
         name: 'PredictionPage',
         components: { PageNotFound },
         data(){
             return {
-                currentPage: 1, // текущая страница
                 loading: false, // индикатор загрузки
-                response: [], // ответ сервера response.data.sapMaterial
-                searchLeft: '', // поиск слева
-                searchRight: '', // поиск справа
-                sizePage: 26, // количество отображаемых строк в таблице
-                table: [], // изначально для таблицы пустой массив
-                tableKub: false, // отображение таблицы Kubernetes
-                tableSearch: [], // массив для поиска
+                placeShow: true, // отображение контента
+                temperature: '',
+                wind: '',
                 title: 'Прогнозирование',
             }
         },
         computed: {
-            // установка высоты таблицы
-            heightTable() {
-                return screen.height - 290;
-            },
-            // здесь данные для отрисовки таблицы
-            tableData() {
-                return this.table;
-            },
-            // общее количество страниц
-            totalPage() {
-                if(this.tableSearch.length > 0 && this.searchLeft || this.tableSearch.length > 0 && this.searchRight || this.searchLeft || this.searchRight) {
-                    return this.tableSearch.length;
-                } else {
-                    return this.response.length;
-                }
-            },
-            // стили для header
-            setStylesHeaderTable() {
-                return {'background-color': '#F56C6C', 'color': '#fff', 'text-align': 'center', 'height': '23px'};
-            },
-            // стили для ячеек таблицы
-            setStylesCellTable() {
-                return {'text-align': 'center'};
-            },
+            dataNow() {
+                return DATE.countDateRU();
+            }
         },
         created() {
             this.getData(); // запрос данных при создании компонента
@@ -136,121 +55,111 @@
                 try {
                     this.loading = true;
                     const response = await homeApi.get(); // здесь запрос данных с бэка
-                    this.tableKub = true;
-                    this.response = response.data.sapMaterial;
-                    this.table = response.data.sapMaterial.slice(0, this.sizePage);
+                    this.temperature = (response.data.main.temp - 273.5).toFixed(1);
+                    this.wind = response.data.wind.speed;
+                    this.placeShow = true;
                     this.loading = false;
                 }
                 catch (e) {
                     this.loading = true;
-                    this.tableKub = false;
+                    this.placeShow = false;
                     handlers.defaultErrorAPIHandler(e, 'Ошибка сервера');
                     this.loading = false;
                     console.log(e);
                 }
             },
-            checkInputValue(value) {
-                switch (value) {
-                    case "materialId":
-                        this.searchRight = '';
-                        break;
-                    case "mnemo":
-                        this.searchLeft = '';
-                        break;
-                    default:
-                        console.log("Значение " + value + " поиском не обрабатывается.");
-                }
-            },
-            clearTableData() {},
-            // перелистывание страниц таблицы
-            handleCurrentChange(val) {
-                this.currentPage = val;
-                let array = this.tableSearch.length > 0 ? this.tableSearch : this.response;
-                this.watchPartTable(array);
-            },
-            // выбор количества строк в таблице
-            handleSizeChange(val) {
-                this.sizePage = val;
-                let array = this.tableSearch.length > 0 ? this.tableSearch : this.response;
-                this.watchPartTable(array);
-            },
-            handleScroll(evt, el) {
-                console.log('here', evt, el);
-                /*if (window.scrollY > 50) {
-                    console.log(evt, el);
-                }
-                return window.scrollY > 100*/
-            },
-            searchTableData(e) {
-                if(e.target.value) {
-                    this.checkInputValue(e.target.name);
-                    this.tableSearch = this.response.filter(item => {
-                        if(item[e.target.name] !== null) { // с сервера прилетают поля с null
-                            return item[e.target.name].toLowerCase().includes(e.target.value.toLowerCase());
-                        }
-                    });
-                    this.watchPartTable(this.tableSearch);
-                } else {
-                    this.tableSearch.length = 0;
-                    this.watchPartTable(this.response);
-                }
-            },
-            // сбрасывает текущее отображение в таблице и считает новое
-            watchPartTable(array) {
-                this.table.length = 0;
-                this.table = array.slice(this.sizePage * this.currentPage - this.sizePage, this.sizePage * this.currentPage);
-            },
+
         }
     }
 </script>
 
 <style scoped>
-    /deep/ .el-table .cell {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        white-space: normal;
-        word-break: break-all;
-        line-height: 16px;
+    .text-property {
+        color: #fff;
+        font-size: 23px;
+        font-style: italic;
     }
-    /deep/ .el-table th div {
-        display: inline-block;
-        line-height: 16px;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        white-space: nowrap;
+    .weather-background {
+        height: 100%;
+        background: radial-gradient(circle farthest-corner at 100px 50px, #a4cdf5, #484c82);
     }
-    .image-filter {
+    /* облака */
+    .cloud {
+        overflow: hidden;
         position: relative;
-        top: 1px;
-        left: -11px;
-        width: 12px;
-        cursor: pointer;
+        width:100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        background-size: cover;
     }
-    .title-pagination {
-        color: #909399;
-        font-size: 12px;
-    }
-    h3 {
-        margin-top: 0;
-    }
-    .input-search {
-        background-color: #fff;
-        -webkit-appearance: none;
-        background-image: none;
-        border-radius: 3px;
-        border: 1px solid #DCDFE6;
-        box-sizing: border-box;
-        display: inline-block;
-        font-size: inherit;
-        height: 28px;
-        line-height: 28px;
-        outline: none;
-        padding: 0 15px;
-        transition: border-color .3s cubic-bezier(.645,.045,.355,1);
-        width: 200px;
+    .cloud-content {
         position: relative;
+        padding:30px;
+        color: #fff;
+        font-size:22px;
+        font-weight:bold;
     }
-    ::-webkit-input-placeholder {color: #c0cfe3; opacity:1; font-size: 12px;}/* webkit */
-    ::-moz-placeholder          {color: #c0cfe3; opacity:1; font-size: 12px;}/* Firefox 19+ */
-    :-moz-placeholder           {color: #c0cfe3; opacity:1; font-size: 12px;}/* Firefox 18- */
+    .cloud img {
+        width: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        pointer-events: none;
+    }
+    @-webkit-keyframes animCloud {
+        from {
+            -webkit-transform: translateX(100%)
+        }
+        to {
+            -webkit-transform: translateX(-100%)
+        }
+    }
+    @-moz-keyframes animCloud {
+        from {
+            -moz-transform: translateX(100%)
+        }
+        to {
+            -moz-transform: translateX(-100%)
+        }
+    }
+    @keyframes animCloud {
+        from {
+            -webkit-transform: translateX(100%);
+            -moz-transform: translateX(100%);
+            -ms-transform: translateX(100%);
+            -o-transform: translateX(100%);
+            transform: translateX(100%)
+        }
+        to {
+            -webkit-transform: translateX(-100%);
+            -moz-transform: translateX(-100%);
+            -ms-transform: translateX(-100%);
+            -o-transform: translateX(-100%);
+            transform: translateX(-100%)
+        }
+    }
+    .cloud1 {
+        -webkit-animation: animCloud 20s infinite linear;
+        -moz-animation: animCloud 20s infinite linear;
+        animation: animCloud 20s infinite linear
+    }
+    .cloud2 {
+        -webkit-animation: animCloud 40s infinite linear;
+        -moz-animation: animCloud 40s infinite linear;
+        animation: animCloud 40s infinite linear
+    }
+    .cloud3 {
+        -webkit-animation: animCloud 60s infinite linear;
+        -moz-animation: animCloud 60s infinite linear;
+        animation: animCloud 60s infinite linear
+    }
+    .cloud4 {
+        -webkit-animation: animCloud 80s infinite linear;
+        -moz-animation: animCloud 80s infinite linear;
+        animation: animCloud 80s infinite linear
+    }
 </style>

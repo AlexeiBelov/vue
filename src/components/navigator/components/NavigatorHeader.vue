@@ -14,7 +14,7 @@
                 </svg>
                 <div class="header-menu-left-text">ОСНОВА 2.0</div>
                 <el-tooltip class="item" effect="light" content="Позалипать?" placement="bottom">
-                    <img  v-show="!snowflakes"
+                    <img  v-show="snowflakes"
                           style="margin-left: 16px; cursor: pointer;"
                           src="../../../assets/images/snowflakeHeader.png"
                           @click="openFullScreen"/>
@@ -24,7 +24,7 @@
                 <div v-if="fullScreen"
                      @click="closeFullscreen"
                      class="fullscreen snow"></div>
-                <RadioPlayer v-if="!snowflakes"/>
+                <RadioPlayer v-if="snowflakes"/>
             </div>
 
             <div class="header-menu-center">
@@ -68,10 +68,17 @@
         data() {
             return {
                 exitName: 'Выход',
-                pulse: true,
+                pulse: false,
                 snowflakes: false,
                 fullScreen: false,
             }
+        },
+        created() {
+            this.$notify({
+                title: 'Мультимедиа',
+                message: 'Для отображения/скрытия функций мультимедиа нажмите на иконку в левом верхнем углу.',
+                duration: 0
+            });
         },
         computed: {
             title: function() {

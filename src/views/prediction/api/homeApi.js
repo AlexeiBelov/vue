@@ -1,19 +1,15 @@
 import axios from "axios";
 import { handlers } from "../../../utils/handlers";
 
-const baseDomain = "http://dkuber.domain.local:7201";
-export const Url = process.env.VUE_APP_API_URL;
-export const authToken = process.env.VUE_APP_API_AUTH_TOKEN;
-const baseURL = process.env.NODE_ENV === '"development"' ? Url : baseDomain;
-const resource = "/v1/sap_material";
+const baseURL = "http://api.openweathermap.org/data/2.5/weather?q=Moscow&APPID=8cf02cc8d811f9097d34cc2a869f2821";
 
 let baseApi = axios.create({
     baseURL,
-    headers: { Authorization: authToken }
+    'X-Gismeteo-Token': '56b30cb255.3443075'
 });
 export default {
     get() {
-        return baseApi.get(`${resource}`)
+        return baseApi.get('')
             .then((response) => {
                 console.log(response);
                 handlers.defaultSuccessHandler(`Ответ сервера ${response.status}`, 'Успешно!')
@@ -22,11 +18,5 @@ export default {
             .catch((error) => {
                 handlers.defaultErrorAPIHandler(error.statusText, error.status);
             })
-    },
-    getPhotos(postId) {
-        return baseApi.get(`${resource}/${postId}`);
-    },
-    createPhotos(payload) {
-        return baseApi.post(`${resource}`, payload);
     }
 };
