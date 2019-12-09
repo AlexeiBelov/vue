@@ -12,6 +12,7 @@ const TableFinishedTasks  = () => Promise.resolve(import('../views/planning/comp
 const ReportsPage  = () => Promise.resolve(import('../views/reports/components/ReportsPage.vue'));
 const ServicePage  = () => Promise.resolve(import('../views/service/components/ServicePage.vue'));
 const FormCreditCard  = () => Promise.resolve(import('../views/formCreditCard/components/FormCreditCard.vue'));
+const ZoomPage  = () => Promise.resolve(import('../views/zoom/components/ZoomPage.vue'));
 
 Vue.use(Router);
 Vue.use(VueAxios, axios);
@@ -57,6 +58,11 @@ const router = new Router({
             path: '/card',
             name: 'Оплата картой',
             component: FormCreditCard
+        },
+        {
+            path: '/zoom',
+            name: 'Картинки',
+            component: ZoomPage
         }
     ]
 })

@@ -16,6 +16,7 @@
                 <button @click="openPrediction">Прогнозирование</button>
                 <button @click="openPlanning">Планирование</button>
                 <button @click="openReports">Отчёты</button>
+                <button @click="openZoomPage">Картинки</button>
                 <button @click="openHomePage">Новогодняя</button>
                 <button @click="openPayCard">Оплата картой</button>
             </div>
@@ -68,6 +69,9 @@
             },
             openPayCard() {
                 this.$router.push('/card');
+            },
+            openZoomPage() {
+                this.$router.push('/zoom');
             },
             //возвращает логический тип
             getElementOpenList() {
