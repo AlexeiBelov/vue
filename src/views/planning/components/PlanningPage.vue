@@ -53,10 +53,9 @@
         display: flex;
         flex-direction: row;
     }
-    /*не удалять, используется*/
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity .3s;
+    /*не удалять, описывают переход*/
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .3s ease-out;
     }
     .fade-enter,
     .fade-leave-to

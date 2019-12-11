@@ -16,8 +16,9 @@
                 <button @click="openPrediction">Прогнозирование</button>
                 <button @click="openPlanning">Планирование</button>
                 <button @click="openReports">Отчёты</button>
-                <button @click="openZoomPage">Картинки</button>
+                <button @click="openZoomPage">Линза</button>
                 <button @click="openHomePage">Новогодняя</button>
+                <button @click="openGeolocation">Геолокация</button>
                 <button @click="openPayCard">Оплата картой</button>
             </div>
         </div>
@@ -73,6 +74,9 @@
             openZoomPage() {
                 this.$router.push('/zoom');
             },
+            openGeolocation() {
+                this.$router.push('/geolocation');
+            },
             //возвращает логический тип
             getElementOpenList() {
                 return !this.$el.querySelector('.dropdown-content-open');
@@ -110,12 +114,12 @@
         position: absolute;
         box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
         z-index: 10;
-        max-height:0;
-        overflow:hidden;
+        max-height: 0;
+        overflow: hidden;
         margin: 16px 0 0 162px;
-        -webkit-transition:max-height .35s linear;
-        -moz-transition:max-height .35s linear;
-        transition:max-height .35s linear;
+        -webkit-transition: max-height .7s linear;
+        -moz-transition: max-height .7s linear;
+        transition: max-height .7s linear;
     }
     /*селект для скрытия выпадающего списка*/
     .dropdown-content-open {

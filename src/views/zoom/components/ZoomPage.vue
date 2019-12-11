@@ -7,26 +7,9 @@
 <script>
     import ImageZoom from '../../../components/othersComponents/ImageZoom'
     export default {
-      name: 'ZoomPage',
+        name: 'ZoomPage',
         components: { ImageZoom },
-      data() {
-          return {
-
-          };
-      },
-      mounted() {
-
-      },
-      computed: {
-
-      },
-      watch: {
-
-      },
-      methods: {
-
-      }
-  }
+    }
 </script>
 
 <style scoped>

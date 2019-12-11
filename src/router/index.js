@@ -13,6 +13,7 @@ const ReportsPage  = () => Promise.resolve(import('../views/reports/components/R
 const ServicePage  = () => Promise.resolve(import('../views/service/components/ServicePage.vue'));
 const FormCreditCard  = () => Promise.resolve(import('../views/formCreditCard/components/FormCreditCard.vue'));
 const ZoomPage  = () => Promise.resolve(import('../views/zoom/components/ZoomPage.vue'));
+const GeolocationPage  = () => Promise.resolve(import('../views/geolocation/components/GeolocationPage.vue'));
 
 Vue.use(Router);
 Vue.use(VueAxios, axios);
@@ -61,8 +62,13 @@ const router = new Router({
         },
         {
             path: '/zoom',
-            name: 'Картинки',
+            name: 'Линза',
             component: ZoomPage
+        },
+        {
+            path: '/geolocation',
+            name: 'Геолокация',
+            component: GeolocationPage
         }
     ]
 })

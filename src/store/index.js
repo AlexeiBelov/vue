@@ -9,6 +9,7 @@ import HomePage from '../views/homePage/store/HomePage.js'
 import PlanningPage from '../views/planning/store/planningPage.js'
 import ReportsPage from '../views/reports/store/reportsPage.js'
 import FormCreditCard from '../views/formCreditCard/store/FormCreditCardPage.js'
+import GeolocationPage from '../views/geolocation/store/GeolocationPage.js'
 import Navigator from '../components/navigator/store/navigator.js'
 
 export default new Vuex.Store({
@@ -21,6 +22,7 @@ export default new Vuex.Store({
         PredictionPage,
         PlanningPage,
         ReportsPage,
-        FormCreditCard
+        FormCreditCard,
+        GeolocationPage
     }
 })

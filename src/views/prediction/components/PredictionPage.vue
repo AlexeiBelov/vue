@@ -9,7 +9,7 @@
                         <div class="text-property" style="font-size: 50px;">Прогноз погоды</div>
                         <div class="column" style="padding-top: 16px;">
                             <div class="text-property">Москва</div>
-                            <div style="color: #fff; font-size: 16px;">{{ runDate }}</div>
+                            <div style="color: #fff; font-size: 16px;">Отображены данные по состоянию на {{ runDate }}</div>
                         </div>
 
                     </div>

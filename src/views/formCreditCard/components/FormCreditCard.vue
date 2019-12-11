@@ -549,7 +549,7 @@
         user-select: none;
     }
     .card-input-input {
-        width: 95%;
+        width: 93%;
         height: 48px;
         border-radius: 5px;
         box-shadow: none;
@@ -576,7 +576,7 @@
         padding-right: 30px;
     }
     .card-input-input-cvv {
-        width: 84%;
+        width: 77%;
         height: 35px;
     }
 
