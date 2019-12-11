@@ -97,7 +97,7 @@
         color: #fff;
         background-color: rgb(84, 92, 100);
         cursor: pointer;
-        padding: 18px;
+        padding: 8px 18px;
         width: 100%;
         text-align: center;
         border: none;
@@ -109,6 +109,7 @@
         background-color: rgb(67, 74, 80);
     }
     .dropdown-content {
+        width: 280px;
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -116,10 +117,10 @@
         z-index: 10;
         max-height: 0;
         overflow: hidden;
-        margin: 16px 0 0 162px;
-        -webkit-transition: max-height .7s linear;
-        -moz-transition: max-height .7s linear;
-        transition: max-height .7s linear;
+        margin: 16px 0 0 72px;
+        -webkit-transition: max-height .5s linear;
+        -moz-transition: max-height .5s linear;
+        transition: max-height .5s linear;
     }
     /*селект для скрытия выпадающего списка*/
     .dropdown-content-open {
